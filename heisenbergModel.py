@@ -16,11 +16,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import mayavi.mlab as mlab
+import pytest
 
 
 class heisenbergModel:
         
-    def __init__( self, N, exchange, mcSteps = 0, heisenberg = True, magneticField = None, plotBool = False, monteCarlo = False):
+    def __init__( self, N, exchange, mcSteps = 0, heisenberg = True, magneticField = None, plotBool = False, monteCarlo = False, temperature =0):
         self.N             = N
         self.mcSteps       = mcSteps
         self.exchange      = exchange
@@ -28,6 +29,7 @@ class heisenbergModel:
         self.magneticField = magneticField
         self.plotBool      = plotBool
         self.monteCarlo    = monteCarlo
+        self.temperature   = temperature
 
 
     def updatePlane( self, lattice, position ):
@@ -344,7 +346,7 @@ class heisenbergModel:
             lattice = np.reshape(lattice,shape)
 
         elif self.heisenberg == True: # Heisenberg Model
-            lattice = []
+            lattice       = []
             for i in range(self.N):
                 theta = np.random.randint(0,181)
                 phi   = np.random.randint(0,361)
@@ -591,7 +593,6 @@ class heisenbergModel:
                 modelName = "HEISENBERG_2d_Mag"
 
         
-            # plot1 = plt.figure()
             plt.quiver(x, y, xComp, yComp, headlength = 4) 
             plt.savefig(modelName + ".png")
 
@@ -603,7 +604,7 @@ class heisenbergModel:
             fig = mlab.gcf()
 
             if self.heisenberg == False:
-                #fix this, not working properly
+                print("WARNING: working out bugs in plotting, lattice is correct plot may not be")
                 x     = np.tile(np.arange(np.shape(lattice)[0]), shape[1] * shape[2])
                 y     = np.tile(np.arange(np.shape(lattice)[1]), shape[0] * shape[2])
                 z     = np.tile(np.arange(np.shape(lattice)[2]), shape[1] * shape[0]) 
@@ -625,19 +626,11 @@ class heisenbergModel:
             mlab.options.offscreen = False
             mlab.savefig(figure    = fig, filename = modelName + '.png', size=(200,200))
 
-    # def Ising(self):
-    #     return -self.exchange
-    
-    # def heisenberg(self):
-    #     return self.exchange*0.5   
-    
-# x = heisenbergModel(1000,1,100000, heisenberg = True, plotBool = (True), monteCarlo=(False),magneticField=[0,0,1]).threeDimensions([10,10,10])
-# x = heisenbergModel(240, -1, 100000, plotBool=True, heisenberg=True, monteCarlo=(True),magneticField=[0,1]).twoDimensions([15, 16])
 
-# x = heisenbergModel(1200,-1,10000, heisenberg=(False), monteCarlo=(True)).oneDimension()
-# print(x)
 
-# y = heisenbergModel(20, 1)
-# print(y.oneDimension())
+def testAnswer():
+    assert len(np.ndarray.flatten(heisenbergModel(100,-1).buildLattice(1))) == 100
+    
+
 
 
