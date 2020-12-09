@@ -19,8 +19,8 @@ x.twoDimensions(40,25)
 #Simulation of lattice with heisenberg model in 1d
 x.oneDimension()
 
-#Create new heisenber Model object to simulate the Ising Model
+#Create new heisenberg model object to simulate the Ising Model
 ising = hm(1000, -1, 10000, plotBool=True, heisenberg=False)
 
-#Simualtion of Ising model in 2D
+#Simulation of Ising model in 2D
 ising.twoDimensions(40,25)
