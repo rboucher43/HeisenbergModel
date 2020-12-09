@@ -349,7 +349,7 @@ class heisenbergModel:
             for i in range(self.N):
                 theta = np.random.randint(0,181)
                 phi   = np.random.randint(0,361)
-                if dimension == 1: ############################## Check this ######################################
+                if dimension == 1: 
                     randomVector = np.cos(phi)
                     
                 elif dimension == 2:
