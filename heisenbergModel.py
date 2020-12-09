@@ -21,7 +21,7 @@ import pytest
 
 class heisenbergModel:
         
-    def __init__( self, N, exchange, mcSteps = 0, heisenberg = True, magneticField = None, plotBool = False, monteCarlo = False, temperature =0):
+    def __init__( self, N, exchange, mcSteps = 0, heisenberg = True, magneticField = None, plotBool = False, monteCarlo = False):
         self.N             = N
         self.mcSteps       = mcSteps
         self.exchange      = exchange
@@ -29,7 +29,6 @@ class heisenbergModel:
         self.magneticField = magneticField
         self.plotBool      = plotBool
         self.monteCarlo    = monteCarlo
-        self.temperature   = temperature
 
 
     def updatePlane( self, lattice, position ):
@@ -553,6 +552,7 @@ class heisenbergModel:
         '''
         plt.hist(energies, histtype='step', bins="auto")
         plt.xlabel("Energy")
+        plt.ylabel("Number of Accepted Energies")
         plt.savefig("monteCarloDistribution_mag.png")
         plt.show()
 
@@ -631,6 +631,13 @@ class heisenbergModel:
 def testAnswer():
     assert len(np.ndarray.flatten(heisenbergModel(100,-1).buildLattice(1))) == 100
     
+    
+
+
+
+
+
+
 
 
 
